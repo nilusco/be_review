@@ -1,0 +1,2 @@
+class WrongConditionException(Exception):
+    pass
