@@ -1,5 +1,3 @@
-from collections import defaultdict
-
 from MatchRule import MatchRule
 from Rule import Rule
 

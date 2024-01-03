@@ -1,0 +1,14 @@
+[{
+"teams": {"home": "Racing 1996", "away": "Racing 2001"},
+"home_events": [
+	{"event": "score", "time": "45 +1", "player" : "Claudio Lopez", "obs": "afuera del area"},
+	{"event": "booking", "time": "32", "player" : "Pablo Michelini"},
+	{"event": "booking", "time": "75", "player" : "Pablo Michelini"},
+	{"event": "pk_save", "time": "90 +8"}
+],
+
+"away_events": [
+	{"event": "score", "time": "45 +1", "player" : "Maxi Estevez", "obs": "pk"},
+	{"event": "red_card", "time": "75", "player" : "Gerardo Bedoya"}
+]
+}]
