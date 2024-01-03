@@ -26,19 +26,6 @@ class Torneo:
             self._goals[team] = self._goals.get(team, 0) + points[1]
             self._bonus_points[team] = self._bonus_points.get(team, 0) + points[2]
 
-    def winner(self):
-        max_points = 0
-        for key in self._points.keys():
-            champion = key
-
-        for team, score in self._points.items():
-            if score > max_points:
-                champion = team
-
-        if len(self._points.keys()) > 0:
-            return champion
-        return "Tie"
-
     def score(self, team):
         return self._points.get(team, 0)
 

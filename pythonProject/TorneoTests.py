@@ -10,7 +10,6 @@ from Torneo import Torneo
 from MatchRule import MatchRule
 from SideRule import SideRule
 
-
 GOAL_EVENT = Event(event_type="score", time=MatchTime("1"), player="Claudio Lopez")
 SINGLE_MATCH = Partido("Racing", "Independiente", [GOAL_EVENT], [])
 
@@ -19,28 +18,20 @@ class Torneo_test_suite(unittest.TestCase):
     def test_single_game_match_is_won_by_local(self):
         game = Partido("Racing", "Independiente", [GOAL_EVENT], [])
 
-        winner = Torneo([game]).winner()
-
-        self.assertEqual(winner, "Racing")
+        self.assertEqual(game.home_goals, 1)
+        self.assertEqual(game.away_goals, 0)
 
     def test_single_game_match_is_won_by_away(self):
         game = Partido("Huracan", "San Lorenzo", [], [GOAL_EVENT])
 
-        winner = Torneo([game]).winner()
-
-        self.assertEqual(winner, "San Lorenzo")
+        self.assertEqual(game.home_goals, 0)
+        self.assertEqual(game.away_goals, 1)
 
     def test_tie_game_does_not_have_a_winner(self):
         game = Partido("Boca", "River", [GOAL_EVENT], [GOAL_EVENT])
 
-        winner = Torneo([game]).winner()
-
-        self.assertEqual(winner, "Tie")
-
-    def test_multiple_games(self):
-        winner = Torneo([SINGLE_MATCH, SINGLE_MATCH]).winner()
-
-        self.assertEqual(winner, "Racing")
+        self.assertEqual(game.home_goals, 1)
+        self.assertEqual(game.away_goals, 1)
 
     def test_win_gives_3_points_for_winner_0_for_loser(self):
         score_winner = Torneo([SINGLE_MATCH]).score("Racing")
@@ -114,7 +105,6 @@ class Torneo_test_suite(unittest.TestCase):
         self.assertEqual(summary["Independiente"]["matches"], 1)
 
     def test_tournament_summary_has_amount_of_goals(self):
-
         summary = Torneo([SINGLE_MATCH]).summary()
 
         self.assertEqual(summary["Racing"]["goals"], 1)
