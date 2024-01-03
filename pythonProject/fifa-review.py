@@ -22,7 +22,6 @@ def load_json(file):
 def convert_partidos(partidos):
     processed_partidos = []
     for p in partidos:
-        p = p[0]
         home = p.get('teams').get('home')
         away = p.get('teams').get('away')
         home_events = convert_events(p['home_events'])
@@ -72,12 +71,14 @@ if __name__ == '__main__':
 
     rules = []
     if args.rules is not None:
-        rules = load_json(rules)
+        rules = load_json(args.rules)
         rules = convert_rules(rules)
 
     partidos = []
     for partido in args.match:
-        partidos.append(load_json('resources/partido.json'))
+        partidos.append(load_json(partido))
+    if len(partidos) == 1:
+        partidos = partidos[0]
 
     partidos = convert_partidos(partidos)
 
