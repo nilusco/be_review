@@ -10,9 +10,9 @@ class Partido:
         self.home_goals = sum(event.score() for event in home_events)
         self.away_goals = sum(event.score() for event in away_events)
 
-    def score_match(self, rules, side_rules, single_rules):
+    def score_match(self, rules):
 
-        scores = self.score_match_result(rules + side_rules + single_rules)
+        scores = self.score_match_result(rules)
         home_points = scores[0]
         away_points = scores[1]
         home_extra_points = scores[2]

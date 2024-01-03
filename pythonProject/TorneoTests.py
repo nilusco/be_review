@@ -5,11 +5,12 @@ from MatchTime import MatchTime
 from RuleCondition import RuleCondition, ConditionType
 from SingleRule import SingleRule
 
-GOAL_EVENT = Event(event_type="score", time=MatchTime("1"), player="Claudio Lopez")
 from Partido import Partido
 from Torneo import Torneo
 from MatchRule import MatchRule
 from SideRule import SideRule
+
+GOAL_EVENT = Event(event_type="score", time=MatchTime("1"), player="Claudio Lopez")
 
 
 class Revisionismo_test_suite(unittest.TestCase):
@@ -76,7 +77,7 @@ class Revisionismo_test_suite(unittest.TestCase):
         partido = Partido("Racing", "Independiente", home_events, [])
         side_rule = SideRule("side_rule", event_type="score", repetitions=3, points=1)
 
-        score_home = Torneo(partidos=[partido], side_rules=[side_rule]).score("Racing")
+        score_home = Torneo(partidos=[partido], rules=[side_rule]).score("Racing")
 
         self.assertEqual(4, score_home)
 
@@ -86,7 +87,7 @@ class Revisionismo_test_suite(unittest.TestCase):
         partido = Partido("Racing", "Independiente", [], events)
         side_rule = SideRule("side_rule", event_type="score", repetitions=3, points=1)
 
-        score_away = Torneo(partidos=[partido], side_rules=[side_rule]).score("Independiente")
+        score_away = Torneo(partidos=[partido], rules=[side_rule]).score("Independiente")
 
         self.assertEqual(4, score_away)
 
@@ -95,19 +96,19 @@ class Revisionismo_test_suite(unittest.TestCase):
         partido = Partido("Racing", "Independiente", events, [])
         side_rule = SideRule("side_rule", event_type="pk_save", repetitions=1, points=1)
 
-        score = Torneo(partidos=[partido], side_rules=[side_rule]).score("Racing")
+        score = Torneo(partidos=[partido], rules=[side_rule]).score("Racing")
 
         self.assertEqual(4, score)
 
     def test10_single_rule_gives_extra_point_to_team_that_saved_a_penalty(self):
         events = [Event(event_type="score", time=MatchTime("90 +1"), player="Chris")]
         partido = Partido("Racing", "Independiente", events, [])
-        single_rule = SingleRule(name="single_rule", event_type="score", condition=RuleCondition(ConditionType.afterTime, MatchTime("90 +0")), points=1)
+        single_rule = SingleRule(name="single_rule", event_type="score",
+                                 condition=RuleCondition(ConditionType.afterTime, MatchTime("90 +0")), points=1)
 
-        score = Torneo(partidos=[partido], single_rules=[single_rule]).score("Racing")
+        score = Torneo(partidos=[partido], rules=[single_rule]).score("Racing")
 
         self.assertEqual(4, score)
-
 
     def test11_tournament_summary_has_ammount_of_matches_played(self):
         game = Partido("Racing", "Independiente", [GOAL_EVENT], [])
@@ -131,7 +132,7 @@ class Revisionismo_test_suite(unittest.TestCase):
         partido = Partido("Racing", "Independiente", events, [])
         side_rule = SideRule("side_rule", event_type="score", repetitions=3, points=1)
 
-        summary = Torneo(partidos=[partido], side_rules=[side_rule]).summary()
+        summary = Torneo(partidos=[partido], rules=[side_rule]).summary()
 
         self.assertEqual(summary["Racing"]["bonus_points"], 1)
         self.assertEqual(summary["Independiente"]["bonus_points"], 0)

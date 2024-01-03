@@ -5,12 +5,11 @@ from MatchTime import MatchTime
 from Player import Player, PlayerType
 from RuleCondition import RuleCondition, ConditionType
 
-BATALLA = Player("Batalla", PlayerType.goalkeeper)
-
-BARRIOS = Player("Sofi", PlayerType.regular)
 from SingleRule import SingleRule
 from WrongConditionException import WrongConditionException
 
+BATALLA = Player("Batalla", PlayerType.goalkeeper)
+BARRIOS = Player("Sofi", PlayerType.regular)
 
 class MyTestCase(unittest.TestCase):
     def test01_fail_if_at_least_condition(self):

@@ -32,5 +32,5 @@ class SingleRule(Rule):
         return points
 
     def goal_in_range(self, event):
-        event.obs
+        return True
 
