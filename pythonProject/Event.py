@@ -9,4 +9,4 @@ class Event:
         self.player = player
 
     def score(self):
-        return 1
+        return 1 if (self.event_type == "score") else 0

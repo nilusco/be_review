@@ -128,7 +128,7 @@ class Revisionismo_test_suite(unittest.TestCase):
     def test13_tournament_summary_has_bonus_points(self):
         events = [GOAL_EVENT, Event(event_type="score", time=MatchTime("2"), player="Claudio Lopez"),
                   Event(event_type="score", time=MatchTime("3"), player="Claudio Lopez")]
-        partido = Partido("Racing", "Independiente", [], events)
+        partido = Partido("Racing", "Independiente", events, [])
         side_rule = SideRule("side_rule", event_type="score", repetitions=3, points=1)
 
         summary = Torneo(partidos=[partido], side_rules=[side_rule]).summary()

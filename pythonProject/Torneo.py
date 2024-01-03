@@ -11,9 +11,10 @@ class Torneo:
 
         self._side_rules = side_rules
         self._partidos = partidos
-        self._scores = {}
+        self._points = {}
         self._matches_played = {}
         self._goals = {}
+        self._bonus_points = {}
         self._single_rules = single_rules
         self.score_championship()
 
@@ -24,25 +25,26 @@ class Torneo:
     def _record_match(self, partido):
         points_for_teams = partido.score_match(self.rules, self._side_rules, self._single_rules)
         for team, points in points_for_teams.items():
-            self._scores[team] = self._scores.get(team, 0) + points[0]
+            self._points[team] = self._points.get(team, 0) + points[0]
             self._matches_played[team] = self._matches_played.get(team, 0) + 1
             self._goals[team] = self._goals.get(team, 0) + points[1]
+            self._bonus_points[team] = self._bonus_points.get(team, 0) + points[2]
 
     def winner(self):
         max_points = 0
-        for key in self._scores.keys():
+        for key in self._points.keys():
             champion = key
 
-        for team, score in self._scores.items():
+        for team, score in self._points.items():
             if score > max_points:
                 champion = team
 
-        if len(self._scores.keys()) > 0:
+        if len(self._points.keys()) > 0:
             return champion
         return "Tie"
 
     def score(self, team):
-        return self._scores.get(team, 0)
+        return self._points.get(team, 0)
 
     def _initialize_match_rules(self, rules: [Rule]):
         self.check_rule_existence(rules, "win", 3)
@@ -57,7 +59,9 @@ class Torneo:
 
     def summary(self):
         summary = {}
-        for team, points in self._scores.items():
-            summary[team] = {"points": points, "matches": self._matches_played[team], "goals": self._goals[team]}
-
+        for team, points in self._points.items():
+            summary[team] = {"points": points,
+                             "matches": self._matches_played[team],
+                             "goals": self._goals[team],
+                             "bonus_points": self._bonus_points[team]}
         return summary

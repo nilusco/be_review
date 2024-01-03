@@ -7,7 +7,9 @@ class SideRule(Rule):
         super().__init__(name, event_type, points)
 
     def apply(self, home_events, away_events):
-        return [(self.check_condition(home_events)), (self.check_condition(away_events))]
+        home_points = (self.check_condition(home_events))
+        away_points = (self.check_condition(away_events))
+        return [home_points, away_points, home_points, away_points]
 
     def check_condition(self, home_events):
         repetitions = sum(

@@ -20,41 +20,41 @@ class MyTestCase(unittest.TestCase):
         rule = SingleRule("after_time", "score", RuleCondition(ConditionType.afterTime, MatchTime("25")), 2)
         score_event = Event("score", MatchTime("35"), BARRIOS)
 
-        score = rule.apply(events=[score_event])
+        score = rule.apply(home_events=[score_event], away_events=[])
 
-        self.assertEqual(score, 2)
+        self.assertEqual(score[0], 2)
 
     def test03_condition_after_time_in_extra_time(self):
         rule = SingleRule("after_time", "score", RuleCondition(ConditionType.afterTime, MatchTime("45 +0")), 2)
         score_event = Event("score", MatchTime("45 +1"), BARRIOS)
 
-        score = rule.apply(events=[score_event])
+        score = rule.apply(home_events=[score_event], away_events=[])
 
-        self.assertEqual(score, 2)
+        self.assertEqual(score[0], 2)
 
     def test04_condition_after_time_in_extra_time(self):
         rule = SingleRule("after_time", "score", RuleCondition(ConditionType.afterTime, MatchTime("45 +1")), 2)
         score_event = Event("score", MatchTime("45 +0"), BARRIOS)
 
-        score = rule.apply(events=[score_event])
+        score = rule.apply(home_events=[score_event], away_events=[])
 
-        self.assertEqual(score, 0)
+        self.assertEqual(score[0], 0)
 
     def test05_condition_player_is_goalkeeper(self):
         rule = SingleRule("player", "score", RuleCondition(ConditionType.player, "goalkeeper"), 2)
         score_event = Event("score", MatchTime("30"), BATALLA)
 
-        score = rule.apply(events=[score_event])
+        score = rule.apply(home_events=[score_event], away_events=[])
 
-        self.assertEqual(score, 2)
+        self.assertEqual(score[0], 2)
 
     def test06_condition_distance_more_than_25m(self):
         rule = SingleRule("long_goal", "score", RuleCondition(ConditionType.distance, "+25m"), 2)
         score_event = Event("score", MatchTime("10"), BARRIOS, "+25m")
 
-        score = rule.apply(events=[score_event])
+        score = rule.apply(home_events=[score_event], away_events=[])
 
-        self.assertEqual(score, 2)
+        self.assertEqual(score[0], 2)
 
 
 if __name__ == '__main__':

@@ -16,9 +16,10 @@ class SingleRule(Rule):
         away_points = sum(
             self.check_event_condition(event) for event in home_events)
 
-        return [home_points, away_points]
+        return [home_points, away_points, home_points, away_points]
 
     def check_event_condition(self, event):
+
         points = 0
         if event.event_type == "score":
             if self._condition.type == ConditionType.afterTime:

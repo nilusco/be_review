@@ -11,17 +11,17 @@ class MatchRule(Rule):
 
         if self._event_type == "tie":
             if home_score == away_score:
-                return [self._points, self._points]
+                return [self._points, self._points, 0, 0]
             else:
-                return [0, 0]
+                return [0, 0, 0, 0]
         if self._event_type == "win":
             if home_score > away_score:
-                return [self._points, 0]
+                return [self._points, 0, 0, 0]
             elif home_score < away_score:
-                return [0, self._points]
+                return [0, self._points, 0, 0]
 
         elif home_score > away_score:
-            return [0, self._points]
+            return [0, self._points, 0, 0]
         elif home_score < away_score:
-            return [self._points, 0]
-        return [0, 0]
+            return [self._points, 0, 0, 0]
+        return [0, 0, 0, 0]
