@@ -7,7 +7,7 @@ class ConditionType(Enum):
     player = 3
 
 
-class RuleCondition():
+class RuleCondition:
     def __init__(self, type: ConditionType, value):
         self.type = type
         self.value = value

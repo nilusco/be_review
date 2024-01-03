@@ -11,6 +11,7 @@ from WrongConditionException import WrongConditionException
 BATALLA = Player("Batalla", PlayerType.goalkeeper)
 BARRIOS = Player("Sofi", PlayerType.regular)
 
+
 class MyTestCase(unittest.TestCase):
     def test01_fail_if_at_least_condition(self):
         self.assertRaises(WrongConditionException, lambda: SingleRule("rule", "score", "at_least", 1))
