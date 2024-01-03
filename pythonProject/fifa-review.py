@@ -1,5 +1,4 @@
 import json
-import sys
 from pprint import pprint
 
 from Event import Event
@@ -10,6 +9,7 @@ from RuleCondition import RuleCondition
 from SideRule import SideRule
 from SingleRule import SingleRule
 from Torneo import Torneo
+import argparse
 
 
 def load_json(file):
@@ -22,6 +22,7 @@ def load_json(file):
 def convert_partidos(partidos):
     processed_partidos = []
     for p in partidos:
+        p = p[0]
         home = p.get('teams').get('home')
         away = p.get('teams').get('away')
         home_events = convert_events(p['home_events'])
@@ -62,19 +63,21 @@ def create_rule(rule):
 
 if __name__ == '__main__':
 
-    # if len(sys.argv) < 2:
-    #    raise Exception("Not enough arguments")
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument('--match', nargs='+', help='Especifica uno o más partidos')
+    parser.add_argument('--rules', help='Especifica las reglas')
+
+    args = parser.parse_args()
 
     rules = []
-    if len(sys.argv) > 2:
-        # rules = load_json(sys.argv[2])
+    if args.rules is not None:
+        rules = load_json(rules)
         rules = convert_rules(rules)
 
-    rules = load_json('resources/rules.json')
-    rules = convert_rules(rules)
-
-    partidos = load_json('resources/partido.json')
-    #    partidos = load_json(sys.argv[1])
+    partidos = []
+    for partido in args.match:
+        partidos.append(load_json('resources/partido.json'))
 
     partidos = convert_partidos(partidos)
 
