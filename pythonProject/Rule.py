@@ -9,5 +9,5 @@ class Rule:
         self._points = points
 
     @abstractmethod
-    def apply(self, events):
+    def apply(self, home_events, away_events):
         pass
