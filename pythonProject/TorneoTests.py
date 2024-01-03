@@ -10,7 +10,9 @@ from Torneo import Torneo
 from MatchRule import MatchRule
 from SideRule import SideRule
 
+
 GOAL_EVENT = Event(event_type="score", time=MatchTime("1"), player="Claudio Lopez")
+SINGLE_MATCH = Partido("Racing", "Independiente", [GOAL_EVENT], [])
 
 
 class Revisionismo_test_suite(unittest.TestCase):
@@ -36,18 +38,13 @@ class Revisionismo_test_suite(unittest.TestCase):
         self.assertEqual(winner, "Tie")
 
     def test04_multiple_games(self):
-        game = Partido("Racing", "Independiente", [GOAL_EVENT], [])
-        game2 = Partido("Racing", "Independiente", [GOAL_EVENT], [])
-
-        winner = Torneo([game, game2]).winner()
+        winner = Torneo([SINGLE_MATCH, SINGLE_MATCH]).winner()
 
         self.assertEqual(winner, "Racing")
 
     def test05_win_gives_3_points_for_winner_0_for_loser(self):
-        partido = Partido("Racing", "Independiente", [GOAL_EVENT], [])
-
-        score_winner = Torneo([partido]).score("Racing")
-        score_loser = Torneo([partido]).score("Independiente")
+        score_winner = Torneo([SINGLE_MATCH]).score("Racing")
+        score_loser = Torneo([SINGLE_MATCH]).score("Independiente")
 
         self.assertEqual(3, score_winner)
         self.assertEqual(0, score_loser)
@@ -110,18 +107,15 @@ class Revisionismo_test_suite(unittest.TestCase):
 
         self.assertEqual(4, score)
 
-    def test11_tournament_summary_has_ammount_of_matches_played(self):
-        game = Partido("Racing", "Independiente", [GOAL_EVENT], [])
-
-        summary = Torneo([game]).summary()
+    def test11_tournament_summary_has_amount_of_matches_played(self):
+        summary = Torneo([SINGLE_MATCH]).summary()
 
         self.assertEqual(summary["Racing"]["matches"], 1)
         self.assertEqual(summary["Independiente"]["matches"], 1)
 
-    def test12_tournament_summary_has_ammount_of_goals(self):
-        game = Partido("Racing", "Independiente", [GOAL_EVENT], [])
+    def test12_tournament_summary_has_amount_of_goals(self):
 
-        summary = Torneo([game]).summary()
+        summary = Torneo([SINGLE_MATCH]).summary()
 
         self.assertEqual(summary["Racing"]["goals"], 1)
         self.assertEqual(summary["Independiente"]["goals"], 0)
