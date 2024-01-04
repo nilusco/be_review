@@ -7,6 +7,10 @@ class Event:
         self.event_type = event_type
         self.time = time
         self.player = player
+        self.multiplier = 1
 
     def score(self):
-        return 1 if (self.event_type == "score") else 0
+        return 1 * self.multiplier if (self.event_type == "score") else 0
+
+    def apply_multiplier(self, multiplier):
+        self.multiplier = multiplier
